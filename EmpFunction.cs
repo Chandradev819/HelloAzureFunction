@@ -1,3 +1,4 @@
+using HelloAzureFunction.Model;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -6,13 +7,6 @@ using System.Text.Json;
 
 namespace HelloAzureFunction
 {
-    public class Employee
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Salary { get; set; }
-    }
-
     public class EmpFunction
     {
         private readonly List<Employee> employeeDataStore = new List<Employee>();
@@ -30,9 +24,9 @@ namespace HelloAzureFunction
             employeeDataStore.Add(new Employee { Id = 1, Name = "John Doe", Salary = 50000 });
             employeeDataStore.Add(new Employee { Id = 2, Name = "Jane Smith", Salary = 60000 });
             employeeDataStore.Add(new Employee { Id = 3, Name = "Anvi Sah", Salary = 70000 });
-            // Add more dummy data as needed
         }
 
+        //Post Method
         [Function("CreateEmployee")]
         public HttpResponseData CreateEmployee(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
@@ -53,6 +47,7 @@ namespace HelloAzureFunction
             return response;
         }
 
+        //Get Method
         [Function("GetAllEmployees")]
         public HttpResponseData GetAllEmployees(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
@@ -67,6 +62,7 @@ namespace HelloAzureFunction
             return response;
         }
 
+        //PUT Method
         [Function("UpdateEmployee")]
         public HttpResponseData UpdateEmployee(
             [HttpTrigger(AuthorizationLevel.Anonymous, "put")] HttpRequestData req)
@@ -90,6 +86,7 @@ namespace HelloAzureFunction
             return response;
         }
 
+        //Delete Method
         [Function("DeleteEmployee")]
         public HttpResponseData DeleteEmployee(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete")] HttpRequestData req)
